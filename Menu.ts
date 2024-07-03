@@ -1,9 +1,33 @@
 import readlinesync = require("readline-sync");
 import { colors } from "./src/util/Colors";
+import { Conta } from "./src/model/Conta"
 
 export function main() {
 
     let opcao: number;
+
+    //Novas Instâncias da classe conta utilizando o metodo constructor.
+    const c1: Conta = new Conta(1, 1234, 1, "João da Silva", 800000.00);
+    const c2: Conta = new Conta(2, 1234, 2, "Marcella Sanches", 600000.00);
+
+    c1.visualizar();
+    c2.visualizar();
+
+    //Utilizando o metodo set
+    // c2.saldo = 900000.00;
+    // console.log(`O Saldo da conta 02: ${c2.saldo}`);
+
+    //SACAR
+    console.log(`\nSacar 100 Reais da Conta C1: ${c1.sacar(100)}`);
+    c1.visualizar();
+    console.log(`\nSacar 100 Reais da Conta C2: ${c2.sacar(100000000)}`);
+    c2.visualizar();
+
+    //DEPOSITAR
+    console.log(`\nDepositar 100 Reais da Conta C1: ${c1.depositar(100000)}`);
+    c1.visualizar();
+    console.log(`\nDepositar  100 Reais da Conta C1: ${c2.depositar(100000)}`);
+    c2.visualizar();
 
     while (true) {
 
@@ -82,7 +106,7 @@ export function main() {
 /* Função com os dados da pessoa desenvolvedora */
 
 export function sobre(): void {
-    console.log(colors.bg.blue, colors.fg.cyan)
+    console.log(colors.fg.cyan)
     console.log("\n*****************************************************");
     console.log("Projeto Desenvolvido por: Geana Almeida");
     console.log("Generation Brasil - geana.almeida2000@gmail.com");
