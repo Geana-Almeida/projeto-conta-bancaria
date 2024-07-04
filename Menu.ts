@@ -2,7 +2,6 @@ import readlinesync = require("readline-sync");
 import { colors } from "./src/util/Colors";
 import { Conta } from "./src/model/Conta";
 import { ContaCorrente } from "./src/model/ContaCorrente";
-import { ContaPoupanca } from "./src/model/ContaPoupanca";
 
 export function main() {
 
@@ -41,12 +40,6 @@ export function main() {
     console.log(`Saque de R$25000.00 na conta CC1: ${cc1.sacar(25000.00)}`);
     console.log(`Saque de R$1500.00 na conta CC2: ${cc2.sacar(1500.00)}`);
 
-
-    const cp1: ContaPoupanca = new ContaPoupanca(5, 1234, 1, "Geana Almeida", 200000.00, 23);
-    const cp2: ContaPoupanca = new ContaPoupanca(6, 1234, 1, "Cesar Augusto", 100000.00, 20);
-
-    cp1.visualizar();
-    cp2.visualizar();
 
     while (true) {
 
