@@ -61,18 +61,7 @@ export class Conta{
 	}
 
     //metodo sacar dinheiro da conta
-    public sacar(valor: number):boolean{
-        
-        if(this._saldo < valor){
-            console.log(`Saldo é insuficiente!`)
-            return false;
-        }
-
-        this._saldo -= valor;
-        return true;
-    }
-
-
+    
     //Metodo Depositar
     public depositar(valor: number):void{
         this._saldo += valor
