@@ -1,10 +1,18 @@
 import readlinesync = require("readline-sync");
 import { colors } from "./src/util/Colors";
+import { ContaController } from "./src/controller/ContaController";
+import { ContaCorrente } from "./src/model/ContaCorrente";
+import { ContaPoupanca } from "./src/model/ContaPoupannca";
+
 
 
 export function main() {
 
-    let opcao: number;
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario: number;
+    let titular: string;
+    const tipoContas = ['Conta Corrente', 'Conta Poupanca'];
+
+    const contas: ContaController = new ContaController();
 
     
     while (true) {
@@ -42,15 +50,53 @@ export function main() {
         switch (opcao) {
             case 1:
                 console.log("\n\nCriar Conta\n\n");
+                
+                console.log('Digite o Número da Agência: ');
+                agencia = readlinesync.questionInt("");
 
+                console.log('Digite o Nome do Titular da Conta: ');
+                titular = readlinesync.question("");
+
+                console.log('Digite o Tipo da Conta: ');
+                tipo = readlinesync.keyInSelect(tipoContas, "", { cancel : false}) + 1;
+
+                console.log('Digite o Saldo da Conta: ');
+                saldo = readlinesync.questionFloat("");
+
+                switch(tipo){
+                    case 1:
+                        console.log('Digite o Limite da Conta: ');
+                        limite = readlinesync.questionInt("");
+                        contas.cadastrar(
+                            new ContaCorrente(contas.gerarNumero() , agencia, tipo, titular, saldo, limite)
+                        )
+                        break;
+
+                    case 2:
+                        console.log('Digite a Data de Aniversário de Conta: ');
+                        aniversario = readlinesync.questionInt("");
+                        contas.cadastrar(
+                            new ContaPoupanca(contas.gerarNumero() , agencia, tipo, titular, saldo, aniversario)
+                        )
+                        break;
+                }
+                
+                
+
+                keyPress();
                 break;
+
             case 2:
                 console.log("\n\nListar todas as Contas\n\n");
-
+                contas.listarTodas();
                 break;
             case 3:
                 console.log("\n\nConsultar dados da Conta - por número\n\n");
+                console.log("Digite o número da Conta: ")
+                numero = readlinesync.questionInt("");
 
+                contas.procurarPorNumero(numero);
+                keyPress();
                 break;
             case 4:
                 console.log("\n\nAtualizar dados da Conta\n\n");
@@ -90,6 +136,12 @@ export function sobre(): void {
     console.log("Generation Brasil - geana.almeida2000@gmail.com");
     console.log("https://github.com/Geana-Almeida");
     console.log("*****************************************************");
+}
+
+function keyPress(): void {
+    console.log(colors.reset, "");
+    console.log("\nPressione enter para continuar...");
+    readlinesync.prompt();
 }
 
 main();
