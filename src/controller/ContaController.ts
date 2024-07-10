@@ -3,12 +3,20 @@ import { ContaRepository } from "../repository/ContaRepository";
 
 
 export class ContaController implements ContaRepository{
-
+   
 
     private listaContas: Array<Conta> = new Array<Conta>();
 
     public numero: number = 0;
  
+    procurarPorTitular(titular: string): void {
+        let buscaPorTitular = this.listaContas.filter(conta => 
+            conta.titular.includes(titular)
+        );
+
+        buscaPorTitular.forEach( conta => conta.visualizar() )
+    }
+
 
     procurarPorNumero(numero: number): void {
         let buscaConta = this.buscarNoArray(numero);

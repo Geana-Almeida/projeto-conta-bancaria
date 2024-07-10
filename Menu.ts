@@ -3,6 +3,7 @@ import { colors } from "./src/util/Colors";
 import { ContaController } from "./src/controller/ContaController";
 import { ContaCorrente } from "./src/model/ContaCorrente";
 import { ContaPoupanca } from "./src/model/ContaPoupannca";
+import { read } from "fs";
 
 
 
@@ -34,7 +35,8 @@ export function main() {
         console.log("            6 - Sacar                                ");
         console.log("            7 - Depositar                            ");
         console.log("            8 - Transferir valores entre Contas      ");
-        console.log("            9 - Sair                                 ");
+        console.log("            9 - Buscar o titular da Conta            ");
+        console.log("            10 - Sair                                ");
         console.log("                                                     ");
         console.log("*****************************************************");
         console.log("                                                     "
@@ -43,7 +45,7 @@ export function main() {
         console.log("Entre com a opção desejada: ");
         opcao = readlinesync.questionInt("");
 
-        if (opcao == 9) {
+        if (opcao == 10) {
             console.log("\nBanco do Brazil com Z - O seu Futuro começa aqui!");
             sobre();
             process.exit(0);
@@ -202,6 +204,14 @@ export function main() {
                 keyPress()
                 break;
 
+            case 9: 
+                console.log(colors.fg.whitestrong,
+                "\n\nBuscar Titular da Conta\n\n", colors.reset);
+                console.log("Informe o titular que deseja buscar:");
+                titular = readlinesync.question("");
+                contas.procurarPorTitular(titular);
+                
+                break;
             default:
                 console.log("\nOpção Inválida!\n");
 
