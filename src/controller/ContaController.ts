@@ -69,8 +69,10 @@ export class ContaController implements ContaRepository{
         if (buscaConta !== null) {
             if (buscaConta.sacar(valor) === true)
                 console.log("\nO Saque foi efetuado com sucesso!")
-        } else
+        } else{
             console.log("\nA Conta não foi encontrada!");
+        }
+            
     }
 
     depositar(numero: number, valor: number): void {
