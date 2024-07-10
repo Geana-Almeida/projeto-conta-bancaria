@@ -14,6 +14,8 @@ export function main() {
 
     const contas: ContaController = new ContaController();
 
+    contas.cadastrar(new ContaCorrente(contas.gerarNumero() , 1234, 1, "Geana", 100000, 10000))
+
     
     while (true) {
 
@@ -99,12 +101,60 @@ export function main() {
                 keyPress();
                 break;
             case 4:
-                console.log("\n\nAtualizar dados da Conta\n\n");
+                console.log(colors.fg.whitestrong,
+                    "\n\nAtualizar dados da Conta\n\n", colors.reset);
 
+                console.log("Digite o número da Conta: ")
+                numero = readlinesync.questionInt("");
+
+                let conta = contas.buscarNoArray(numero);
+
+                if (conta) {
+
+                    console.log('Digite o Número da Agência: ');
+                    agencia = readlinesync.questionInt("");
+
+                    console.log('Digite o Nome do Titular da Conta: ');
+                    titular = readlinesync.question("");
+
+                    console.log('Digite o Saldo da Conta: ');
+                    saldo = readlinesync.questionFloat("");
+
+                    tipo = conta.tipo;
+
+                    switch (tipo) {
+                        case 1:
+                            console.log('Digite o Limite da Conta: ');
+                            limite = readlinesync.questionFloat("");
+                            contas.atualizar(
+                                new ContaCorrente(numero, agencia, tipo, titular, saldo, limite)
+                            )
+                            break;
+                        case 2:
+                            console.log('Digite a Data de Aniversário da Conta: ');
+                            aniversario = readlinesync.questionInt("");
+                            contas.atualizar(
+                                new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario)
+                            )
+                            break;
+                    }
+
+                } else {
+                    console.log(`\nA Conta número: ${numero} não foi encontrada!`)
+                }
+
+                keyPress()
                 break;
             case 5:
-                console.log("\n\nApagar uma Conta\n\n");
+                console.log(colors.fg.whitestrong,
+                    "\n\nApagar uma Conta\n\n", colors.reset);
 
+                console.log("Digite o número da Conta: ")
+                numero = readlinesync.questionInt("");
+
+                contas.deletar(numero);
+
+                keyPress()
                 break;
             case 6:
                 console.log("\n\nSaque\n\n");
